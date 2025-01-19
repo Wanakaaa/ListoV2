@@ -10,8 +10,8 @@ export default {
           dark: "#BBF0B5", // Variante plus foncée
         },
         secondary: {
-          DEFAULT: "#f3f4f6", // Gris clair pour les fonds ou textes secondaires
-          dark: "#6b7280", // Gris foncé pour les bordures ou textes
+          DEFAULT: "#858788", // Gris clair pour les fonds ou textes secondaires
+          light: "#EDEDED", // Gris foncé pour les bordures ou textes
         },
         background: "#ffffff", // Fond blanc pur
         text: {

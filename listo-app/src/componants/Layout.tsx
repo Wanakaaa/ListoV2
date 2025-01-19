@@ -12,6 +12,7 @@ export default function Layout() {
                 <Logo/>
                 <Login/>
                 <Navbar
+                    selectedOption={selectedOption}
                     setSelectedOption={setSelectedOption}/>
             </div>
             <div className="w-5/6">
