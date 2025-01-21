@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ModalBtn from "../common/ModalBtn";
+import ModalBtn from "../../common/ModalBtn"
 import ParamsModal from "./ParamsModal";
 
 type NavbarProps = {
