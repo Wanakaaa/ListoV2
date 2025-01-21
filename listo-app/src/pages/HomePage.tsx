@@ -1,17 +1,21 @@
-import Lists from "../content/Lists";
-//import CreateListBtn from "../content/CreateListBtn";
-import CreateListBtn2 from "../content/CreateListBtn";
+import Lists from "../components/features/lists/Lists";
+import ModalBtn from "../components/common/ModalBtn";
+import NewListModal from "../components/features/lists/NewListModal";
 
-export default function HomePage() {
+const HomePage = () => {
   return (
     <div>
       <div className="flex justify-around p-4">
         <h1 className="p-4">Vos listes de courses</h1>
-        <CreateListBtn2/>
+        <ModalBtn
+          btnName="Nouvelle liste"
+          className="p-4 bg-pink-300"
+          dialogContent={<NewListModal />}
+        />
       </div>
-      <Lists/>
+      <Lists />
     </div>
   );
-}
+};
 
-// <CreateListBtn/>
+export default HomePage;

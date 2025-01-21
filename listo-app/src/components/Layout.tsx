@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
-import Logo from "../componants/Nav/Logo"
-import Login from "../componants/Nav/Login"
-import Navbar from "../componants/Nav/Navbar"
+import Logo from "./common/Logo"
+import Login from "./features/auth/Login"
+import Navbar from "../components/features/navbar/Navbar"
 
-export default function Layout() {
+const Layout = () => {
     const [selectedOption, setSelectedOption] = useState("lists")
   return (
     <div className="w-full flex h-screen">
@@ -21,3 +21,5 @@ export default function Layout() {
         </div>
   )
 }
+
+export default Layout

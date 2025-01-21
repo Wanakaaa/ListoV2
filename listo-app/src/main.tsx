@@ -2,10 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Layout from "./componants/Layout";
+import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import Trash from "./pages/Trash";
-import List from "./componants/List/List";
+import List from "./components/features/lists/List";
 import "./main.css";
 import NotFound from "./pages/NotFound";
 
