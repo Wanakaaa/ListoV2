@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Dialog from "../Dialog";
+import Params from "../Params";
 
 type NavbarProps = {
     selectedOption: string,
@@ -7,6 +10,11 @@ type NavbarProps = {
 
 export default function Navbar({selectedOption, setSelectedOption }: NavbarProps) {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
+
   return (
     <div className="flex flex-col border-2 border-green-500 h-[50vh] justify-between">
       <div className="flex flex-col">
@@ -33,7 +41,11 @@ export default function Navbar({selectedOption, setSelectedOption }: NavbarProps
         <button
             className="hover:bg-secondary-light text-secondary"
         >Aide</button>
-        <button className="hover:bg-secondary-light text-secondary">Paramètres</button>
+        <button className="hover:bg-secondary-light text-secondary" onClick={openDialog}>
+        Paramètres</button>
+                <Dialog isOpen={isOpen} onClose={closeDialog}>
+                  <Params closeDialog={closeDialog}/>
+                </Dialog>
       </div>
     </div>
   );

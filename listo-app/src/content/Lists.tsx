@@ -1,15 +1,9 @@
 import { Link } from "react-router-dom";
-
-import NewListButton from "./NewListButton";
 import { listsData } from "../data/listsData";
 
 export default function Lists() {
   return (
     <div>
-      <div className="flex justify-around p-4">
-        <h1>Vos listes de courses</h1>
-        <NewListButton />
-      </div>
       <div className="flex flex-col gap-4">
         {listsData.map((list) => (
           <Link key={list.id}  to={`/lists/${list.id}`}>
