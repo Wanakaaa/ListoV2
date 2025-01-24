@@ -1,10 +1,9 @@
+import React from 'react'
 
 const Trash = () => {
   return (
-          <div >
-              Ceci est la corbeille
-          </div>
-    )
-  }
+    <div>Trash</div>
+  )
+}
 
-  export default Trash
+export default Trash

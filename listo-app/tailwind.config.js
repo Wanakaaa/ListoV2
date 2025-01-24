@@ -11,7 +11,8 @@ export default {
         },
         secondary: {
           DEFAULT: "#858788", // Gris clair pour les fonds ou textes secondaires
-          light: "#EDEDED", // Gris foncé pour les bordures ou textes
+          light: "#EDEDED", 
+          dark: "#bdc2c7" // Gris  pour les bordures ou textes
         },
         background: "#ffffff", // Fond blanc pur
         text: {

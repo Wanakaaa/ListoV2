@@ -1,23 +1,23 @@
 import { forwardRef } from "react"
 
-type Props = {
+type DialogProps = {
     children: React.ReactNode;
-    toggleDialog: () => void;
+    handleClose:() => void;
 }
 
-const Dialog = forwardRef<HTMLDialogElement, Props>(({ children, toggleDialog }, ref) => {
+const Dialog = forwardRef<HTMLDialogElement, DialogProps>(({ children, handleClose }, ref) => {
   return (
     <dialog 
         ref={ref}
         onClick={(e) => {
             if (e.currentTarget === e.target) {
-                toggleDialog()
+                handleClose()
             }
         }}
         className="p-4 border-4 border-red-700">
             <div>
                 {children}
-                <button onClick={toggleDialog}>Fermer</button>
+                <button onClick={handleClose}>Fermer</button>
             </div>
         </dialog>
   )

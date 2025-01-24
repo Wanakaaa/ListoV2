@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ModalBtn from "../../common/ModalBtn"
-import ParamsModal from "./ParamsModal";
+import Modal from "../../common/Modal";
+import CreateList2 from "./ParamsModal";
 
 type NavbarProps = {
   selectedOption: string;
@@ -48,11 +48,10 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
         <button className="hover:bg-secondary-light text-secondary">
           Aide
         </button>
-
-        <ModalBtn
-          btnName="Paramètres"
-          className="hover:bg-secondary-light text-secondary"
-          dialogContent={<ParamsModal />}
+        <Modal
+          btnName="Params"
+          className={"hover:bg-secondary-light text-secondary"}
+          render={({ onClose }) => <CreateList2 onClose={onClose} />}
         />
       </div>
     </div>

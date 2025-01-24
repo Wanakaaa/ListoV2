@@ -7,3 +7,19 @@
         @apply text-2xl font-bold
     }
 }
+
+.btn {
+    @apply flex items-center justify-center rounded-lg border px-4 py-2 font-medium text-base
+}
+
+.btn-blue {
+    @apply p-2 flex justify-center border-2 bg-blue-700 text-white text-center rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-blue-500
+}
+
+.btn-gray {
+    @apply p-2 flex justify-center border-2 border-gray-200 bg-white text-secondary rounded-lg hover:bg-secondary-light hover:text-secondary-dark focus:outline-none focus:ring-4 focus:ring-gray-200
+}
+
+.input-field {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+}
