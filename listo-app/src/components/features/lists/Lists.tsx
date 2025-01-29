@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { listsData } from "../../../data/listsData";
 
-const Lists = () => {
+const Lists = ({shoppingLists}) => {
   return (
     <div>
-      <div className="flex flex-col gap-4">
-        {listsData.map((list) => (
+      J'essaye de récupérer les instances de ShoppingList
+        <div className="flex flex-col gap-4">{shoppingLists?.length === 0 ? <p>Aucune liste disponible</p> 
+        :shoppingLists.map((list) => (
           <Link key={list.id} to={`/lists/${list.id}`}>
             <button className="w-full border-2 border-pink-500">
-              <div className="flex justify-around">
+            <div className="flex justify-around">
                 <div>{list.listName}</div>
                 <div>0/{list.items.length}</div>
                 <div>options</div>
@@ -16,10 +16,9 @@ const Lists = () => {
               <div>barre cheloue</div>
             </button>
           </Link>
-        ))}
-      </div>
+        )) }</div>
     </div>
-  );
+  )
 }
 
 export default Lists

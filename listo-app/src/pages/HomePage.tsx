@@ -1,8 +1,24 @@
 import Lists from "../components/features/lists/Lists";
 import Modal from "../components/common/Modal";
-import CreateList1 from "../components/features/lists/CreateListModal";
+import CreateListModal from "../components/features/lists/CreateListModal";
+import { useState, useEffect } from "react";
+import useLocalStorage from "../components/features/lists/useLocalStorage";
 
 const HomePage = () => {
+  const [shoppingLists, setShoppingLists] = useState([]);
+  const { getItem, setItem } = useLocalStorage("shoppingLists");
+
+  useEffect(() => {
+    const storedLists = getItem();
+    setShoppingLists(storedLists);
+  }, []);
+
+  const handleListCreated = (newList) => {
+    setItem(newList);
+    const updatedLists = getItem();
+    setShoppingLists(updatedLists);
+  };
+
   return (
     <div>
       <div className="flex justify-around p-4">
@@ -10,10 +26,15 @@ const HomePage = () => {
         <Modal
           btnName="Nouvelle liste"
           className="bg-blue-500 p-4"
-          render={({ onClose }) => <CreateList1 onClose={onClose} />}
+          render={({ onClose }) => (
+            <CreateListModal
+              onClose={onClose}
+              onListCreated={handleListCreated}
+            />
+          )}
         />
       </div>
-      <Lists />
+      <Lists shoppingLists={shoppingLists} />
     </div>
   );
 };

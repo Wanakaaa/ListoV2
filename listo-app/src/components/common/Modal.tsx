@@ -36,3 +36,7 @@ const Modal = ({ btnName, className, render }: ModalProps) => {
 };
 
 export default Modal;
+
+
+//créer des lsites dans le localstorage
+// dossier API ? 
