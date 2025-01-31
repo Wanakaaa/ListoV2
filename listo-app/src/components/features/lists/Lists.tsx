@@ -1,24 +1,36 @@
 import { Link } from "react-router-dom";
 
-const Lists = ({shoppingLists}) => {
+type ListsProps = {
+  shoppingLists: { id: string; listName: string; items: any[] }[];
+  // Array of shoppingLists passed as a prop
+};
+
+const Lists = ({ shoppingLists }: ListsProps) => {
+  
   return (
-    <div>
-      J'essaye de récupérer les instances de ShoppingList
-        <div className="flex flex-col gap-4">{shoppingLists?.length === 0 ? <p>Aucune liste disponible</p> 
-        :shoppingLists.map((list) => (
+    <div className="flex flex-col gap-4">
+      {shoppingLists?.length === 0 ? (
+        <p>Aucune liste disponible</p>
+      ) : (
+        shoppingLists.map((list) => (
           <Link key={list.id} to={`/lists/${list.id}`}>
-            <button className="w-full border-2 border-pink-500">
-            <div className="flex justify-around">
+            <div className="w-full border-2 border-pink-500">
+              <div className="flex justify-around">
                 <div>{list.listName}</div>
                 <div>0/{list.items.length}</div>
-                <div>options</div>
+                <div>options
+                  <button
+                  type="button"
+                  onClick={() => {console.log('clic')}}>Remove List</button>
+                </div>
               </div>
               <div>barre cheloue</div>
-            </button>
+            </div>
           </Link>
-        )) }</div>
+        ))
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Lists
+export default Lists;

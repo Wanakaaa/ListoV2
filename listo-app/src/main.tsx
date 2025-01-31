@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import Trash from "./pages/Trash";
-import List from "./components/features/lists/List";
+import ListDetail from "./components/features/lists/ListDetail";
 import "./main.css";
 import NotFound from "./pages/NotFound";
 
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/lists/:listId",
-        element: <List />,
+        element: <ListDetail />,
       },
     ],
   },

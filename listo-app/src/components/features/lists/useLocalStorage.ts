@@ -1,40 +1,46 @@
 import { ShoppingList } from "../../../data/modelShoppingList"
-// Custom hook to save data in LocalStorage
+// Custom hook for interacting with LocalStorage
 
 const useLocalStorage = (key: string) => {
 
-    const getItem = () => { 
+    // Retrieves shopping lists from localStorage
+    const getItemCustom = () => { 
         try {
-         //   console.log("📥 Avant parsing, données brutes de localStorage :", window.localStorage.getItem(key));
             const item = window.localStorage.getItem(key)
+         //   console.log("item before parsed: ", item)
             const parsedData = item ? JSON.parse(item) : []
-         //   console.log("📦 Après parsing, tableau récupéré :", parsedData);
-         //   console.log("🔄 Listes transformées en instances ShoppingList :", parsedData.map((obj: { id: string; listName: string; items: any[] })=> new ShoppingList(obj.id, obj.listName, obj.items)));
-    // on prend chaque obj du tableau parsedData et on le transforme en une instance de ShoppingList
-            return parsedData.map((obj: { id: string; listName: string; items: any[] }) => 
+          //  console.log("parsed items :", parsedData)
+            // Convert plain objects into ShoppingList instances
+            const itemsInstances = parsedData.map(
+                (obj: { id: string; listName: string; items: any[] }) => 
                 new ShoppingList(obj.id, obj.listName, obj.items))
+            return itemsInstances
         } catch (error) {
             console.log(error)
             return []
         }
     }
 
-    const setItem = (value: unknown) => {
+    // Save a new shopping list to localStorage
+    const setItemCustom = (value: unknown) => {
         try {
-        //    console.log("🛠 Avant récupération des listes, nouvelle liste reçue :", value);
-            const existingItems = getItem()
-        //    console.log("📥 Listes existantes avant ajout :", existingItems);
-            // créer un tableau qui copie existingItems et ajouter la nouvelle liste (value)
+            const existingItems = getItemCustom()
             const updatedItems = [...existingItems, value]
-        //    console.log("📝 Tableau mis à jour avant stockage :", updatedItems);
             window.localStorage.setItem(key, JSON.stringify(updatedItems))
-         //   console.log("✅ Données enregistrées dans localStorage !");
         } catch (error) {
             console.log(error)
         }
     }
 
-  return { setItem, getItem }
+    const removeItemCustom = (listId: string) => {
+        const lists = window.localStorage.getItem(key)
+        const parsedData: ShoppingList[] = lists ? JSON.parse(lists) : []
+        const updatedLists = parsedData.filter((list) => list.id !== listId)
+        window.localStorage.setItem(key, JSON.stringify(updatedLists))
+        return updatedLists
+    }
+
+  return { setItemCustom, getItemCustom, removeItemCustom }
 }
 
 export default useLocalStorage

@@ -1,21 +1,25 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react'
 
 type ModalProps = {
   btnName: string,
   className?: string,
   render: (props: {onClose: () => void }) => React.ReactNode
+  // callback function that return the modal content
+  // onClose() will be used to close d=the modal
 }
 
 const Modal = ({ btnName, className, render }: ModalProps) => {
+  // Ref to the <dialog> to control modal visibility
   const dialogRef = useRef<HTMLDialogElement>(null);
 
+  // open/close the modal
   const toggleModal = () => {
     if (!dialogRef.current) {
         return
     }
     dialogRef.current.hasAttribute("open")
     ? dialogRef.current.close() : dialogRef.current.showModal()
-  };
+  }
 
   return (
     <div>
@@ -36,7 +40,3 @@ const Modal = ({ btnName, className, render }: ModalProps) => {
 };
 
 export default Modal;
-
-
-//créer des lsites dans le localstorage
-// dossier API ? 

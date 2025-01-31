@@ -1,18 +1,19 @@
-import { ChangeEvent, useState } from "react";
-import { ShoppingList } from "../../../data/modelShoppingList";
+import { ChangeEvent, useState } from "react"
+import { ShoppingList } from "../../../data/modelShoppingList"
 
 
 type CreatListModalProps = {
-  onClose: () => void
-  onListCreated: (newList: ShoppingList) => void
+  onClose: () => void // Function to close the modal
+  onListCreated: (newList: ShoppingList) => void // Callback triggered when a new list is created
 }
 
 const CreateListModal = ({ onClose, onListCreated }: CreatListModalProps) => {
+  // Store the name of the new shopping list
   const [ value, setValue ] = useState("")
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
-    console.log("value : ", e.target.value)
+   // console.log("value : ", e.target.value)
   } 
 
     return (
@@ -36,9 +37,10 @@ const CreateListModal = ({ onClose, onListCreated }: CreatListModalProps) => {
             </button>
             <button 
             className="btn-blue flex-1"
-            type="button"
+            type="submit"
             onClick={() => {
-              const listId = `list_id_${Date.now()}_${Math.floor(Math.random() * 100000)}`
+              if (!value.trim()) return
+              const listId = `list_${Date.now()}_${Math.floor(Math.random() * 100000)}`
               const newList = new ShoppingList(listId, value, [])
               onListCreated(newList)
             }
