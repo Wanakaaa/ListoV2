@@ -9,19 +9,24 @@ const HomePage = () => {
   // Store shopping lists retrieved from localStorage
   const [shoppingLists, setShoppingLists] = useState([]);
   // Access localStorage function for getting and saving lists
-  const { getItemCustom, setItemCustom } = useLocalStorage("shoppingLists");
-
+  const { getItemCustom, setItemCustom, removeItemCustom } = useLocalStorage("shoppingLists");
+  
   // Load stored lists when the component mounts
   useEffect(() => {
     const storedLists = getItemCustom();
     setShoppingLists(storedLists);
-  }, []);
+  }, [])
 
   const handleListCreated = (newList: ShoppingList) => {
     setItemCustom(newList);
     const updatedLists = getItemCustom();
     setShoppingLists(updatedLists);
-  };
+  }
+
+  const handleListDeleted = (listId: string) => {
+    const updatedLists = removeItemCustom(listId)
+    setShoppingLists(updatedLists)
+  }
 
   return (
     <div>
@@ -40,7 +45,9 @@ const HomePage = () => {
           )}
         />
       </div>
-      <Lists shoppingLists={shoppingLists} />
+      <Lists shoppingLists={shoppingLists} 
+      onDeleteList = {handleListDeleted}
+      />
     </div>
   );
 };

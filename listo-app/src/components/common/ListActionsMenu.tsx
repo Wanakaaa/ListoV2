@@ -3,10 +3,14 @@ import { useRef, useEffect } from "react";
 type ListActionsMenuProps = {
   isOpen: string | null;
   onToggle: (listId: string | null) => void;
-  options: { id: string; label: string; action: () => void }[];
-};
+  handleOpenModal: (listId: string | null) => void;
+  options: { id: string; label: string; execute: (listId: string) => void }[];
+  listId: string
+}
 
-const ListActionsMenu = ({ isOpen, onToggle, options }: ListActionsMenuProps) => {
+const ListActionsMenu = ({ isOpen, onToggle, handleOpenModal, options, listId}: ListActionsMenuProps) => {
+
+
   // null au départ car le JSX n'est pas encore rendu
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -39,8 +43,8 @@ const ListActionsMenu = ({ isOpen, onToggle, options }: ListActionsMenuProps) =>
       {options.map((option) => (
         <button key={option.id} type="button"
         onClick={(e) => {
-          console.log(`🛠 Exécution de l'action : ${option.label}`);
-      option.action()
+          console.log(`🛠 Exécution de l'action : ${option.label}`)
+          option.execute(listId)
         }}>{option.label}</button>
       ))}
     </div>

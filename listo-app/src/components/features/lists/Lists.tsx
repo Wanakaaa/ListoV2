@@ -1,13 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ListActionsMenu from "../../common/ListActionsMenu";
+import useLocalStorage from "./useLocalStorage";
+import Modal from "../../common/Modal";
 
 type ListsProps = {
-  shoppingLists: { id: string; listName: string; items: any[] }[];
   // Array of shoppingLists passed as a prop
-};
+  shoppingLists: { id: string; listName: string; items: any[] }[];
+  onDeleteList : (listId: string) => void
+}
 
-const Lists = ({ shoppingLists }: ListsProps) => {
+const Lists = ({ shoppingLists, onDeleteList }: ListsProps) => {
+
+  const [ isModalOpen, setIsModalOpen ] = useState<Boolean>(false)
+  const [ selectedListId, setSelectedListId ] = useState<string | null >(null)
+
+  const handleOpenModal = (listId: string) => {
+    setSelectedListId(listId)
+    setIsModalOpen(true)
+  }
+
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState<string | null>(null);
 
@@ -17,15 +29,10 @@ const Lists = ({ shoppingLists }: ListsProps) => {
 
   const onToggle = (listId : string) => (listId === isOpen) ? setIsOpen(null) : setIsOpen(listId)
 
-
-
-  // Déclare un tableau d'objet pour définir les labels + actions qui seront possibles dans le dropdown
-  const options = [
-    { id: "option1", label: "Renommer", action: () => console.log("Renommer cliqué") },
-    { id: "option2", label: "Supprimer", action: () => console.log("Supprimer cliqué") },
-    { id: "option3", label: "3", action: () => console.log("action 3") },
-    { id: "option4", label: "4", action: () => console.log("action 4 ") },
-  ];
+  const getListActions = () => [
+    { id: "option1", label: 'Renommer', execute: (listId: string) => console.log("renommer : ", listId)},
+    { id: "option2", label: 'Supprimer', execute: (listId: string) => onDeleteList(listId)}
+  ]
 
   return (
     <div className="flex flex-col gap-4">
@@ -49,7 +56,10 @@ const Lists = ({ shoppingLists }: ListsProps) => {
                     <ListActionsMenu
                       isOpen={isOpen}
                       onToggle={() => {onToggle(list.id)}}
-                      options={options}
+                      options={getListActions()}
+                      listId = {list.id}
+                      handleOpenModal = {()=> {handleOpenModal(list.id)}}
+                      
                     />
                   )}
                 </div>

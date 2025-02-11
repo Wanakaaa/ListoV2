@@ -8,6 +8,8 @@ import Trash from "./pages/Trash";
 import ListDetail from "./components/features/lists/ListDetail";
 import "./main.css";
 import NotFound from "./pages/NotFound";
+import ListsPage from "./pages/ListsPage";
+import SelectedListPage from "./components/features/list2/SelectedListPage";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <ListsPage />,
       },
       {
         path: "/trash",
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/lists/:listId",
-        element: <ListDetail />,
+        element: <SelectedListPage />,
       },
     ],
   },
