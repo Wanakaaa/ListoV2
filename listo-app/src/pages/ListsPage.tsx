@@ -8,7 +8,7 @@ import Lists from "../components/features/list2/Lists2";
 
 
 const ListsPage = () => {
-    const [shoppingLists, setShoppingLists] = useState([])
+    const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([])
     const { getItemCustom, setItemCustom, removeItemCustom } = useLocalStorage("shoppingLists")
     //v gestion modal v
     const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +22,9 @@ const ListsPage = () => {
 
   useEffect(() => {
     const storedLists = getItemCustom();
-    console.log("useEffect, juste après const storedList : ", storedLists)
+    //console.log("useEffect, juste après const storedList : ", storedLists)
     setShoppingLists(storedLists);
-    console.log("useEffect, juste après setShopp(storedLists) : ", storedLists)
+   // console.log("useEffect, juste après setShopp(storedLists) : ", storedLists)
   }, []);
 
 
@@ -33,12 +33,12 @@ const ListsPage = () => {
     const id = `list_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
     const newList = new ShoppingList(id, listName, []);
     
-    console.log("Avant mise à jour, shoppingLists :", shoppingLists);
-    console.log("Nouvelle liste à ajouter :", newList);
+    //console.log("Avant mise à jour, shoppingLists :", shoppingLists);
+    //console.log("Nouvelle liste à ajouter :", newList);
     
     setShoppingLists((prevLists) => {
         const updatedLists = [...prevLists, newList];
-        console.log("Après mise à jour, updatedLists :", updatedLists);
+      //  console.log("Après mise à jour, updatedLists :", updatedLists);
         
         setItemCustom(updatedLists);
         return updatedLists;
@@ -55,7 +55,6 @@ const ListsPage = () => {
       </div>
 
         <Lists arrayLists={shoppingLists}></Lists>
-      
       {isOpen ? (
         <Modal2
           isOpen={isOpen}
