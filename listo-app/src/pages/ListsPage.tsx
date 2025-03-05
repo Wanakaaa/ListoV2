@@ -1,71 +1,61 @@
 import { useState, useEffect } from "react";
-
+import { useModalContext } from "../context/modalContext";
 import Modal2 from "../components/modal/Modal2";
-import CreateListForm from "../components/modal/CreateListForm";
 import { ShoppingList } from "../data/modelShoppingList";
 import useLocalStorage from "../components/features/lists/useLocalStorage";
 import Lists from "../components/features/list2/Lists2";
 
-
 const ListsPage = () => {
-    const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([])
-    const { getItemCustom, setItemCustom, removeItemCustom } = useLocalStorage("shoppingLists")
-    //v gestion modal v
-    const [isOpen, setIsOpen] = useState(false);
+  const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
+  const { getItemCustom, setItemCustom, removeItemCustom } = useLocalStorage("shoppingLists");
 
-    const onOpen = () => {
-        setIsOpen(true);
-    }
-    const onClose = () => {
-        setIsOpen(false)
-    }
+  const { openModal, listId} = useModalContext();
 
+  // Afficher les listes au démarrage de la page
   useEffect(() => {
     const storedLists = getItemCustom();
-    //console.log("useEffect, juste après const storedList : ", storedLists)
     setShoppingLists(storedLists);
-   // console.log("useEffect, juste après setShopp(storedLists) : ", storedLists)
   }, []);
 
+  console.log(shoppingLists)
 
-  // Add new list
-  const addNewList = (listName: string) => {
-    const id = `list_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
-    const newList = new ShoppingList(id, listName, []);
-    
-    //console.log("Avant mise à jour, shoppingLists :", shoppingLists);
-    //console.log("Nouvelle liste à ajouter :", newList);
-    
-    setShoppingLists((prevLists) => {
-        const updatedLists = [...prevLists, newList];
-      //  console.log("Après mise à jour, updatedLists :", updatedLists);
-        
-        setItemCustom(updatedLists);
-        return updatedLists;
-    });
-};
+  // Ajouter la nouvelle liste à la liste existante dans le localStorage et l'état
+  const handleListCreated = (newList: ShoppingList) => {
+    const existingLists = getItemCustom();
+    const updatedLists = [...existingLists, newList];
+    setItemCustom(updatedLists);
+    setShoppingLists(updatedLists);
+    console.log("handleListCreated est exécuté")
+  };
+
+  const handleDeleteList = (listId: string) => {
+    console.log("🗑️ Suppression demandée pour la liste :", listId);
+    const updatedLists = removeItemCustom(listId);
+    console.log("📃 Listes après suppression :", updatedLists);
+    setShoppingLists(updatedLists);
+  }
+
+
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-around p-4">
         <h1>Vos listes</h1>
-        <button className="border-2 border-red-500" onClick={onOpen}>
+        <button
+          className="border-2 border-red-500"
+          onClick={() => openModal("add", null, handleListCreated)}
+        >
           Créer une liste
         </button>
+        <button
+          className="border-2 border-red-500"
+          onClick={() => handleDeleteList("list_1741116255344_61550")}
+        >
+          Supprimer la liste 
+        </button>
       </div>
-
-        <Lists arrayLists={shoppingLists}></Lists>
-      {isOpen ? (
-        <Modal2
-          isOpen={isOpen}
-          onClose={onClose}
-          children={
-            <CreateListForm onClose={onClose} addNewList={addNewList} />
-          }
-        />
-      ) : (
-        ""
-      )}
+    <Lists shoppingLists={shoppingLists}/>
+      <Modal2 />
     </div>
   );
 };

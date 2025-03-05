@@ -1,15 +1,22 @@
-import { DialogHTMLAttributes, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
+import { useModalContext } from '../../context/modalContext'
+import { CreateModalContent, DeleteModalContent } from './ModalContents'
+import { ModalType } from '../../types/modalTypes'
 
-type ModalProps = {
-    isOpen : boolean,
-    onClose : () => void,
-    children?: React.ReactNode
-}
+const Modal2 = () => {
+    const { isOpen, modalType, closeModal } = useModalContext()
+    const dialRef = useRef<HTMLDialogElement | null>(null)
 
-const Modal2 = ({isOpen, onClose, children} : ModalProps) => {
-    const dialRef = useRef<HTMLDialogElement>(null)
+    const MODAL_COMPONENTS = {
+        add: CreateModalContent,
+        delete : DeleteModalContent      
+    }
+    const ModalComponent: React.FC | null = modalType && modalType in MODAL_COMPONENTS ? MODAL_COMPONENTS[modalType as ModalType] : null
 
     useEffect(() => {
+        if (!dialRef.current) {
+            return
+        }
         if (isOpen) {
             dialRef.current?.showModal()
         } else {
@@ -17,20 +24,19 @@ const Modal2 = ({isOpen, onClose, children} : ModalProps) => {
         }
     }, [isOpen])
 
-    const closeOnOutsideClick = (event : React.MouseEvent<HTMLDialogElement>) => {
+    const handleOutsideClick = (event : React.MouseEvent<HTMLDialogElement>) => {
         if (event.target === event.currentTarget) {
-            onClose()
+            closeModal()
         } 
     }
 
   return (
     <>
-        <dialog 
-        onClose={onClose}
-        onClick={(event) => {closeOnOutsideClick(event)}}
-        ref={dialRef}>
+        <dialog ref={dialRef} onClick={handleOutsideClick} >
             <div className='bg-orange-300 p-4 flex flex-col'>
-                <div className='border-2 border-blue-300 p-4'>{children}</div>
+                <div className='border-2 border-blue-300 p-4'>
+                    {ModalComponent && <ModalComponent/>}
+                </div>
             </div>
         </dialog>
     </>
@@ -38,3 +44,4 @@ const Modal2 = ({isOpen, onClose, children} : ModalProps) => {
 }
 
 export default Modal2
+

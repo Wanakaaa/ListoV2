@@ -1,6 +1,33 @@
 import React, { useState } from 'react'
 import ListDetail from './ListDetail2'
 import { useNavigate } from 'react-router-dom'
+import { ShoppingList } from '../../../data/modelShoppingList';
+
+
+const Lists = ({ shoppingLists }: { shoppingLists: ShoppingList[] }) => {
+
+  return (
+    <div>
+        {shoppingLists.length === 0 ? (
+          <div>Pas de liste à afficher</div>) :
+         (<ul className="border-2 border-green-500 flex flex-col gap-2">
+          {shoppingLists.map((list) => (
+            <ListDetail 
+              list={list} 
+              key={list.id} 
+              />
+          ))}
+        </ul>)
+        }
+    </div>
+  )
+}
+
+export default Lists
+
+/* import React, { useState } from 'react'
+import ListDetail from './ListDetail2'
+import { useNavigate } from 'react-router-dom'
 
 
 type List = {
@@ -9,35 +36,8 @@ type List = {
   items: string[];
 }
 
-const Lists = ({ arrayLists } : { arrayLists: List[]}) => {
-  const [ selectedListId, setSelectedListId ] = useState<null | string >(null)
+const Lists = ({ arrayLists, onOpenDelete, onOpenRename} : { arrayLists: List[]}) => {
 
-  const handleToggleMenu = (list: List) => {
-    console.log("handleToggleMenu apppelé par:", list.id)
-    console.log("Avant : selectedListId =", selectedListId);
-    if (selectedListId === list.id) {
-      setSelectedListId(null);
-      console.log("Fermeture du menu pour", list.id);
-      console.log("Fermeture du menu, selectedListId devient NULL");
-    } else {
-      setSelectedListId(list.id);
-      console.log("Ouverture du menu pour", list.id);
-    }
-  };
-
-  let navigate = useNavigate()
-  const handleNavigateToList = (list : List) => {
-    navigate(`/lists/${list.id}`)
-  }
-
-  const handleListNavigation = (event: React.MouseEvent<HTMLLIElement>, list: List) => {
-    const target = event.target as HTMLElement
-    if (target.tagName === "BUTTON") {
-      console.log("clic sur ⋮ détecté")
-      return
-    }
-    handleNavigateToList(list)
-  }
   return (
     <div>
         {arrayLists.length === 0 ? (
@@ -48,12 +48,8 @@ const Lists = ({ arrayLists } : { arrayLists: List[]}) => {
             <ListDetail 
               list={list} 
               key={list.id} 
-              onListClick={(event: React.MouseEvent<HTMLLIElement>) => 
-                {handleListNavigation(event, list)
-                  console.log("eventTarget: ", event.target)
-                }}  
-              onToggle={() => handleToggleMenu(list)}
-              selectedListId = {selectedListId}
+              onOpenDelete={onOpenDelete}
+              onOpenRename={onOpenRename}
               />
           ))}
         </ul>
@@ -62,4 +58,4 @@ const Lists = ({ arrayLists } : { arrayLists: List[]}) => {
   )
 }
 
-export default Lists
+export default Lists */

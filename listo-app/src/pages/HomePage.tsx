@@ -5,7 +5,10 @@ import { useState, useEffect } from "react";
 import useLocalStorage from "../components/features/lists/useLocalStorage";
 import { ShoppingList } from "../data/modelShoppingList";
 
+
 const HomePage = () => {
+
+
   // Store shopping lists retrieved from localStorage
   const [shoppingLists, setShoppingLists] = useState([]);
   // Access localStorage function for getting and saving lists
@@ -27,6 +30,9 @@ const HomePage = () => {
     const updatedLists = removeItemCustom(listId)
     setShoppingLists(updatedLists)
   }
+
+
+
 
   return (
     <div>

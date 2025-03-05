@@ -1,6 +1,9 @@
 import { useState } from "react";
 import ListMenu from "./ListMenu";
 import Modal2 from "../../modal/Modal2";
+import { useNavigate } from "react-router-dom";
+import { useModalContext } from "../../../context/modalContext";
+
 
 type List = {
   id: string;
@@ -8,37 +11,41 @@ type List = {
   items: string[];
 };
 
-const ListDetail = ({
-  list,
-  onListClick,
-  onToggle,
-  selectedListId,
-}: {
-  list: List;
-  onListClick: (event: React.MouseEvent<HTMLLIElement>) => void;
-  onToggle: () => void;
-  selectedListId: string | null;
-}) => {
+const ListDetail = ({list}: {list: List; }) => {
 
-  const [ isModalOpen, setIsModalOpen ] = useState(false)
+  const { openModal, onListDeleted } = useModalContext()
 
-  const onClose = () => {
-    setIsModalOpen(false)
-}
+  // Gestion de l'état du menu (ouvert ou non)
+  const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>(false)
+  const onToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  // Gestion de la navigation
+  let navigate = useNavigate()
+  const handleNavigateToList = (list : List) => {
+    navigate(`/lists/${list.id}`)
+  }
+
+  const handleListNavigation = (event: React.MouseEvent) => {
+    const target= event.target as HTMLElement
+    if (target.tagName ==="BUTTON") {
+      console.log("Clic sur ⋮ détecté")
+      return
+    }
+    handleNavigateToList(list)
+  }
 
   const actions = [
     {
-      id: "1",
+      id: "delete",
       label: "supprimer",
-      execute: (listId: string) => {
-        console.log(`suppression de la liste ${list.id}`)
-        setIsModalOpen(true);
-      },
+      execute: () => openModal("delete", list.id, undefined) // Je dois ajouter ici handleLDeleteList pour que ça se set dans onListdeleted 
     },
     {
       id: "2",
       label: "rename",
-      execute: (listId: string) => {
+      execute: () => {
         console.log(`renommage de la liste ${list.id}`);
       },
     },
@@ -48,8 +55,7 @@ const ListDetail = ({
     <li
       className="border-2 border-purple-500 p-4"
       onClick={(event) => {
-        console.log("Clic sur la liste détecté");
-        onListClick(event);
+        handleListNavigation(event)
       }}
     >
       <div className="border-2 flex justify-between">
@@ -60,7 +66,6 @@ const ListDetail = ({
             className="p-4 bg-yellow-300"
             onClick={(event) => {
               event.stopPropagation();
-              console.log("Clic sur ⋮, onToggle() doit être appelé");
               onToggle();
             }}
           >
@@ -70,19 +75,8 @@ const ListDetail = ({
         </div>
       </div>
       <div className="relative border-2 border-green-400">Barre bizzare
-      {selectedListId === list.id ? (
-            <ListMenu listId={list.id} onClose={onToggle} actions={actions} />
-          ) : null}
+      {isMenuOpen && <ListMenu onClose={onToggle} actions={actions} />}
       </div>
-      {isModalOpen && (
-  <Modal2 isOpen={isModalOpen} onClose={onClose}>
-    <p className="text-center p-2">Voulez-vous vraiment supprimer cette liste ?</p>
-    <div className="flex justify-around">
-      <button className="bg-gray-300 px-4 py-2 rounded" onClick={onClose}>Annuler</button>
-      <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => console.log("Suppression confirmée")}>Confirmer</button>
-    </div>
-  </Modal2>
-)}
     </li>
   );
 };
