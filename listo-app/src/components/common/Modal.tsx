@@ -1,42 +1,48 @@
-import { useRef } from 'react'
+import React, { useState, useRef, useImperativeHandle, forwardRef, ReactNode } from 'react'
 
 type ModalProps = {
-  btnName: string,
-  className?: string,
-  render: (props: {onClose: () => void }) => React.ReactNode
-  // callback function that return the modal content
-  // onClose() will be used to close d=the modal
+  children: (closeModal: () => void) => ReactNode
 }
+export type ModalHandle = {
+  openModal: () => void;
+  closeModal: () => void;
+};
 
-const Modal = ({ btnName, className, render }: ModalProps) => {
-  // Ref to the <dialog> to control modal visibility
-  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  // open/close the modal
-  const toggleModal = () => {
-    if (!dialogRef.current) {
-        return
+const Modal = forwardRef<ModalHandle, ModalProps>(({children}, ref) => {
+  //console.log("children :", children)
+  const dialRef = useRef<HTMLDialogElement | null>(null)
+
+  const openModal = () => {
+    dialRef.current?.showModal()
+  }
+  const closeModal = () => {
+    dialRef.current?.close()
+  }
+
+  useImperativeHandle(ref, () => {
+    return {
+      openModal,
+      closeModal
     }
-    dialogRef.current.hasAttribute("open")
-    ? dialogRef.current.close() : dialogRef.current.showModal()
+  })
+
+  const handleOutsideClick = (event : React.MouseEvent<HTMLDialogElement>) => {
+    if (event.target === event.currentTarget) {
+        closeModal()
+    } 
   }
 
   return (
-    <div>
-      <button type="button" onClick={toggleModal} className={className}>
-        {btnName}
-      </button>
+    <>
 
-      <dialog ref={dialogRef} className="rounded-lg bg-white shadow-lg"
-      onClick={(e) => {
-        if (e.currentTarget === e.target) {
-            toggleModal()
-        }
-      }}>
-        {render({ onClose: toggleModal })}
+      <dialog ref={dialRef} onClick={handleOutsideClick}>
+      <div className='bg-orange-300 p-4 flex flex-col'>
+        {children && children(closeModal)}
+        </div>
       </dialog>
-    </div>
-  );
-};
+    </>
+  )
+})
 
-export default Modal;
+export default Modal

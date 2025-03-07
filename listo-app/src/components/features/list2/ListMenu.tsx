@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { useModalContext } from "../../../context/modalContext";
 
 
 const ListMenu = ({
@@ -11,7 +10,7 @@ const ListMenu = ({
 }) => {
 
   const menuRef = useRef<HTMLDivElement>(null);
-  const { openModal, listId } = useModalContext()
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

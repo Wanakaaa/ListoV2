@@ -1,17 +1,8 @@
-import { useRef, useEffect } from 'react'
-import { useModalContext } from '../../context/modalContext'
+/*import { useRef, useEffect } from 'react'
 import { CreateModalContent, DeleteModalContent } from './ModalContents'
-import { ModalType } from '../../types/modalTypes'
 
 const Modal2 = () => {
-    const { isOpen, modalType, closeModal } = useModalContext()
     const dialRef = useRef<HTMLDialogElement | null>(null)
-
-    const MODAL_COMPONENTS = {
-        add: CreateModalContent,
-        delete : DeleteModalContent      
-    }
-    const ModalComponent: React.FC | null = modalType && modalType in MODAL_COMPONENTS ? MODAL_COMPONENTS[modalType as ModalType] : null
 
     useEffect(() => {
         if (!dialRef.current) {
@@ -45,3 +36,4 @@ const Modal2 = () => {
 
 export default Modal2
 
+*/

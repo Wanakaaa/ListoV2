@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useLocalStorage from "../lists/useLocalStorage";
 import NotFound from "../../../pages/NotFound";
+import { useListsContext } from "../../../context/listsContext";
 
 type List = {
   id: string;
@@ -10,31 +10,20 @@ type List = {
 };
 
 const SelectedListPage = () => {
+
+  // Récupérer les listes 
+  const { shoppingLists } = useListsContext()
+
   const listParam = useParams();
-  console.log("idParams est: ", listParam.listId);
+  //console.log("idParams est: ", listParam.listId);
 
-  const [selectedList, setSelectedList] = useState<List | null>(null);
-
-  const { getItemCustom } = useLocalStorage("shoppingLists");
-
-  const findSelectedList = () => {
-    const shoppingLists: List[] = getItemCustom();
     const foundList = shoppingLists.find(
       (list: List) => list.id === listParam.listId
     );
-    if (!foundList) {
-      setSelectedList(null);
-      return;
-    }
-    setSelectedList(foundList);
-  };
 
-  useEffect(() => {
-    findSelectedList();
-  }, [listParam.listId]);
 
-  return selectedList ? (
-    <div> Test page de la liste : {selectedList.listName}</div>
+  return foundList ? (
+    <div> Test page de la liste : {foundList.listName}</div>
   ) : (
     <NotFound />
   );

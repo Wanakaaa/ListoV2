@@ -1,4 +1,4 @@
-import { useModalContext } from "../../context/modalContext";
+/*import { useModalContext } from "../../context/modalContext";
 import { useState } from "react";
 import { ShoppingList } from "../../data/modelShoppingList";
 
@@ -80,3 +80,4 @@ export const DeleteModalContent = () => {
         <button type="submit" onClick={handleSubmit}>Supprimer</button></div>
     )
 }
+*/

@@ -7,8 +7,9 @@ import Trash from "./pages/Trash";
 import "./main.css";
 import NotFound from "./pages/NotFound";
 import ListsPage from "./pages/ListsPage";
-import SelectedListPage from "./components/features/list2/SelectedListPage";
-import ModalProvider from "./context/ModalProvider";
+import SelectedListPage from "./components/features/list2/SelectedListPage"
+import { ListsProvider } from "./context/ListsProvider";
+
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -18,12 +19,17 @@ if (!rootElement) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: 
+    <ListsProvider>
+      <Layout />
+    </ListsProvider>,
     errorElement: <NotFound />,
     children: [
       {
         path: "/",
-        element: <ListsPage />,
+        element: (
+          <ListsPage />
+        )
       },
       {
         path: "/trash",
@@ -31,7 +37,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/lists/:listId",
-        element: <SelectedListPage />,
+       element: 
+        <SelectedListPage />,
       },
     ],
   },
@@ -39,8 +46,6 @@ const router = createBrowserRouter([
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ModalProvider>
-      <RouterProvider router={router} />
-    </ModalProvider>
+    <RouterProvider router={router} />
   </StrictMode>
 );
