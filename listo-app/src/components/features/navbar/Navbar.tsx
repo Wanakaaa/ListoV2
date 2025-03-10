@@ -9,10 +9,6 @@ type NavbarProps = {
 };
 const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openDialog = () => setIsOpen(true);
-  const closeDialog = () => setIsOpen(false);
 
   return (
     <div className="flex flex-col border-2 border-green-500 h-[50vh] justify-between">
@@ -24,6 +20,7 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
               : "hover:bg-secondary-light text-secondary"
           }`}
           onClick={() => {
+            console.log("clic sur bouton navbar")
             navigate("/");
             setSelectedOption("lists");
           }}
@@ -37,6 +34,7 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
               : "hover:bg-secondary-light text-secondary"
           }`}
           onClick={() => {
+            console.log("clic sur bouton trash")
             navigate("/trash");
             setSelectedOption("trash");
           }}
@@ -48,11 +46,6 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
         <button className="hover:bg-secondary-light text-secondary">
           Aide
         </button>
-        <Modal
-          btnName="Params"
-          className={"hover:bg-secondary-light text-secondary"}
-          render={({ onClose }) => <CreateList2 onClose={onClose} />}
-        />
       </div>
     </div>
   );

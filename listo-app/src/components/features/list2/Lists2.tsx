@@ -3,13 +3,18 @@ import ListDetail from './ListDetail2'
 import { useNavigate } from 'react-router-dom'
 import { ShoppingList } from '../../../data/modelShoppingList';
 
-// controller ??
+// View ?
 
 const Lists = ({ shoppingLists }: { shoppingLists: ShoppingList[] }) => {
-  let navigate = useNavigate()
 
-  function onSelectedList(listId: string) {
-    navigate(`/lists/${listId}`)
+  const [ menuOpenId, setMenuOpenId] = useState<string | null>(null)
+
+  function toggleMenuLIST(listId: string | null) {
+    if (menuOpenId === listId) {
+      setMenuOpenId(null)
+    } else {
+      setMenuOpenId(listId)
+    }
   }
 
   return (
@@ -20,8 +25,9 @@ const Lists = ({ shoppingLists }: { shoppingLists: ShoppingList[] }) => {
           {shoppingLists.map((list) => (
             <ListDetail 
               list={list} 
-              key={list.id} 
-              onSelectedList = {onSelectedList}
+              key={list.id}
+              toggleMenuLIST = {toggleMenuLIST} 
+              menuOpenId={menuOpenId}
               />
           ))}
         </ul>)

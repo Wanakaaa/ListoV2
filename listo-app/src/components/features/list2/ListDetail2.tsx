@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListMenu from "./ListMenu";
-
 import { useNavigate } from "react-router-dom";
+
+// View ET controller (navigate) ? 
 
 type List = {
   id: string;
@@ -9,14 +10,9 @@ type List = {
   items: string[];
 };
 
-const ListDetail = ({list, onSelectedList}: {list: List; onSelectedList : (listId: string) => void }) => {
+const ListDetail = ({list, toggleMenuLIST, menuOpenId}: {list: List, toggleMenuLIST: (listId: string | null) => void, menuOpenId: string | null }) => {
 
-  // Gestion de l'état du menu (ouvert ou non)
-  /*const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>(false)
-  const onToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  }
-*/ 
+  let navigate = useNavigate()
 
    const handleListNavigation = (event: React.MouseEvent) => {
     const target= event.target as HTMLElement
@@ -24,43 +20,35 @@ const ListDetail = ({list, onSelectedList}: {list: List; onSelectedList : (listI
       console.log("Clic sur ⋮ détecté")
       return
     } else {
-      onSelectedList(list.id)
+      navigate(`/lists/${list.id}`)
     }
    }
-
-
-  const actions = [
-    {
-      id: "delete",
-      label: "supprimer",
-      execute: () => 
-        console.log(`suppression de la liste ${list.id}`)
-    },
-  ];
-  
 
   return (
     <li
       className="border-2 border-purple-500 p-4"
-      onClick={() => onSelectedList(list.id)}
+      onClick={handleListNavigation}
     >
       <div className="border-2 flex justify-between">
         <h5 className="p-4">{list.listName}</h5>
         <div className="flex w-1/2 border border-blue-600 justify-end gap-2">
           <div className="p-4">item/{list.items.length}</div>
           <button
-            className="p-4 bg-yellow-300"
+            className="p-4 bg-blue-300"
             onClick={(event) => {
-              console.log("test")
+              toggleMenuLIST(list.id)
+             event.stopPropagation()
+              
             }}
           >
             ⋮
           </button>
-
+          
         </div>
       </div>
       <div className="relative border-2 border-green-400">Barre bizzare
       </div>
+      {menuOpenId === list.id && <ListMenu onClose={toggleMenuLIST}/>}
     </li>
   );
 };
