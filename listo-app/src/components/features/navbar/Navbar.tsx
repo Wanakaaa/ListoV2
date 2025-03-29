@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Modal from "../../common/Modal";
-import CreateList2 from "./ParamsModal";
+import Modal from "../../Modal/Modal";
 
 type NavbarProps = {
   selectedOption: string;
@@ -20,7 +19,7 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
               : "hover:bg-secondary-light text-secondary"
           }`}
           onClick={() => {
-            console.log("clic sur bouton navbar")
+            console.log("clic sur bouton navbar");
             navigate("/");
             setSelectedOption("lists");
           }}
@@ -34,7 +33,7 @@ const Navbar = ({ selectedOption, setSelectedOption }: NavbarProps) => {
               : "hover:bg-secondary-light text-secondary"
           }`}
           onClick={() => {
-            console.log("clic sur bouton trash")
+            console.log("clic sur bouton trash");
             navigate("/trash");
             setSelectedOption("trash");
           }}

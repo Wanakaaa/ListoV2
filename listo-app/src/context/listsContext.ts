@@ -3,8 +3,10 @@ import { ShoppingList } from "../data/modelShoppingList";
 
 type ListsContextType = {
   shoppingLists: ShoppingList[];
-  addList: (listName: string) => void
-};
+  addList: (listName: string) => void;
+  deleteList: (listId: string) => void;
+  renameList: (listId: string, newListName: string) => void
+}
 
 export const listsContext = createContext<ListsContextType | undefined>(undefined);
 

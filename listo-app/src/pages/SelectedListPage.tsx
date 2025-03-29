@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import NotFound from "../../../pages/NotFound";
-import { useListsContext } from "../../../context/listsContext";
+import NotFound from "./NotFound";
+import { useListsContext } from "../context/listsContext";
 
 type List = {
   id: string;
@@ -10,17 +10,15 @@ type List = {
 };
 
 const SelectedListPage = () => {
-
-  // Récupérer les listes 
-  const { shoppingLists } = useListsContext()
+  // Récupérer les listes
+  const { shoppingLists } = useListsContext();
 
   const listParam = useParams();
   //console.log("idParams est: ", listParam.listId);
 
-    const foundList = shoppingLists.find(
-      (list: List) => list.id === listParam.listId
-    );
-
+  const foundList = shoppingLists.find(
+    (list: List) => list.id === listParam.listId
+  );
 
   return foundList ? (
     <div> Test page de la liste : {foundList.listName}</div>

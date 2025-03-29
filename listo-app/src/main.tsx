@@ -6,10 +6,11 @@ import Layout from "./components/Layout";
 import Trash from "./pages/Trash";
 import "./main.css";
 import NotFound from "./pages/NotFound";
-import ListsPage from "./pages/ListsPage";
-import SelectedListPage from "./components/features/list2/SelectedListPage"
+import ListTest from "./pages/Listes_Test";
+import SelectedListPage from "./pages/SelectedListPage";
 import { ListsProvider } from "./context/ListsProvider";
-
+import { MenuProvider } from "./context/MenuContext";
+import { ModalProvider } from "./context/ModalContext";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -19,17 +20,24 @@ if (!rootElement) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: 
-    <ListsProvider>
-      <Layout />
-    </ListsProvider>,
+    element: (
+      
+        <ListsProvider>
+          <ModalProvider>
+          <Layout />
+          </ModalProvider>
+        </ListsProvider>
+     
+    ),
     errorElement: <NotFound />,
     children: [
       {
         path: "/",
         element: (
-          <ListsPage />
-        )
+          <MenuProvider>
+            <ListTest />
+          </MenuProvider>
+        ),
       },
       {
         path: "/trash",
@@ -37,8 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/lists/:listId",
-        element: 
-        <SelectedListPage />,
+        element: <SelectedListPage />,
       },
     ],
   },
