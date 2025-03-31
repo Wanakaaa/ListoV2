@@ -25,7 +25,8 @@ const DeleteListModal = ({ list }: DeleteListModalProps) => {
         <button
           className="border-2 border-red-400 p-4"
           type="submit"
-          onClick={() => deleteList(list.id)}
+          onClick={() => {deleteList(list.id) 
+            closeModal()}}
         >
           OK
         </button>

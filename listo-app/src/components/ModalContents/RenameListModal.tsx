@@ -12,31 +12,26 @@ type RenameListModalProps = {
 };
 
 export const RenameListModal = ({ list }: RenameListModalProps) => {
-  const [ newListName, setNewListName] = useState("");
+  const [newListName, setNewListName] = useState("");
   const { closeModal } = useModalContext();
-  const { renameList } = useListsContext()
-  
+  const { renameList } = useListsContext();
 
   useEffect(() => {
     setNewListName(list.listName);
   }, [list]);
 
-  function saveNewName(e) {
+  function saveNewName(e : React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (newListName.trim() === "") {
-      setNewListName("Nouvelle liste")
-      renameList(list.id, newListName)
-    } else {
-      renameList(list.id, newListName)
-      console.log("nouveau nom: ", newListName)
-    }
-    closeModal()
+    const defaultName =
+      newListName.trim() === "" ? "Nouvelle liste" : newListName;
+    renameList(list.id, defaultName)
+    closeModal();
   }
 
   return (
     <div>
       <h2>Renommer la liste</h2>
-      <form>
+      <form onSubmit={saveNewName}>
         <label htmlFor="newListName">Nom de la liste</label>
         <input
           type="text"
@@ -56,7 +51,10 @@ export const RenameListModal = ({ list }: RenameListModalProps) => {
           >
             Annuler
           </button>
-          <button className="border-2 border-red-400 p-4" type="submit" onClick={saveNewName}>
+          <button
+            className="border-2 border-red-400 p-4"
+            type="submit"
+          >
             Enregistrer
           </button>
         </div>
