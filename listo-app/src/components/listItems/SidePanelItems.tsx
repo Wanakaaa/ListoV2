@@ -29,6 +29,9 @@ const { addItem } = useListsContext()
     setToggle(id)
   }
 
+  const popItems = availableItems.filter((item) => item.type === "popular")
+  const recentItems = availableItems.filter((item) => item.type === "recent")
+
 
   return (
     <div className='bg-blue-200 p-4 flex flex-col'>
@@ -49,10 +52,9 @@ const { addItem } = useListsContext()
 
         {toggle === "popular" && 
         <ul className="content-popular flex flex-col bg-white border-2 border-blue-300">
-          
-          <li>populaire 1</li>
-          <li>populaire 2</li>
-          <li>populaire 3</li>
+          {popItems.map((item) => (
+            <li key={item.itemId}>{item.itemName}</li>
+          ))}
         </ul>}
 
         {toggle === "recent" && 
