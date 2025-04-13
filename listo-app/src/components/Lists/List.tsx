@@ -62,7 +62,7 @@ const List = ({ list }) => {
     toggleMenu(list.id);
   }
 
-  // Sera un composant progress bar + à ajouter à SelectedListPage
+  // Sera un composant progress bar + à ajouter à SelectedListPage + regarder aria pour les lecteurs d'écran
   const totalItems = list.items.length
   const checkedItems = list.items.filter(item => item.isChecked).length
   const progressPercentage = totalItems === 0 ? 0 : (checkedItems / totalItems) * 100

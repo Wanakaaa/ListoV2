@@ -3,7 +3,15 @@
 export type Item = {
     itemName: string,
     itemId: string,
-    isChecked: boolean
+    isChecked: boolean,
+    quantity: number,
+    category?: string,
+    createdAt: string,
+    type?: string,
+    price?: number,
+    unity?: string,
+    description?: string,
+    picture?: string
 }
 
 export class ShoppingList {
