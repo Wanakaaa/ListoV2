@@ -55,8 +55,40 @@ export const ListsProvider = ({ children }: ListsProviderProps) => {
       setShoppingLists(updatedLists);
   }
 
+  function addItem(listId : string, newItem: string) {
+    const lists = getItemCustom()
+    const itemId = `item_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    const itemToAdd = { itemName: newItem, itemId ,isChecked: false }
+    const updatedLists = lists.map((list) => {
+      if (listId === list.id) {
+        return {...list, items: [...list.items, itemToAdd]}
+      } else {
+        return list
+      }
+    })
+    setItemCustom(updatedLists);
+    setShoppingLists(updatedLists);
+}
+
+function toggleItemChecked(listId: string, itemId: string) {
+    const lists = getItemCustom()
+    const updatedLists = lists.map((list) => {
+      if (list.id === listId) {
+        const updatedItems = list.items.map((item) => {
+          return item.itemId === itemId ? 
+          { ...item, isChecked: !item.isChecked } : item
+        })
+        return { ...list, items: updatedItems}
+      } else {
+        return list
+      }
+    })
+    setItemCustom(updatedLists)
+    setShoppingLists(updatedLists)
+}
+
   return (
-    <listsContext.Provider value={{ shoppingLists, addList, deleteList, renameList }}>
+    <listsContext.Provider value={{ shoppingLists, addList, deleteList, renameList, addItem, toggleItemChecked }}>
       {children}
     </listsContext.Provider>
   );

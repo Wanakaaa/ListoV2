@@ -6,6 +6,8 @@ type ListsContextType = {
   addList: (listName: string) => void;
   deleteList: (listId: string) => void;
   renameList: (listId: string, newListName: string) => void
+  addItem: (listId: string, newItem: string) => void
+  toggleItemChecked: (listId: string, itemId: string) => void
 }
 
 export const listsContext = createContext<ListsContextType | undefined>(undefined);

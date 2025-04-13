@@ -1,0 +1,61 @@
+export const availableItems = [
+    { itemId: "item_1", itemName: "Pommes", category: "fruits", type: "popular" },
+    { itemId: "item_2", itemName: "Bananes", category: "fruits", type: "popular" },
+    { itemId: "item_3", itemName: "Tomates", category: "légumes", type: "popular" },
+    { itemId: "item_4", itemName: "Carottes", category: "légumes", type: "popular" },
+    { itemId: "item_5", itemName: "Pommes de terre", category: "légumes", type: "popular" },
+    { itemId: "item_6", itemName: "Oignons", category: "légumes", type: "popular" },
+    { itemId: "item_7", itemName: "Ail", category: "légumes", type: "popular" },
+    { itemId: "item_8", itemName: "Avocats", category: "fruits", type: "popular" },
+    { itemId: "item_9", itemName: "Salade verte", category: "légumes", type: "popular" },
+    { itemId: "item_10", itemName: "Courgettes", category: "légumes", type: "popular" },
+  
+    { itemId: "item_11", itemName: "Pain", category: "boulangerie", type: "popular" },
+    { itemId: "item_12", itemName: "Baguette", category: "boulangerie", type: "popular" },
+    { itemId: "item_13", itemName: "Pain de mie", category: "boulangerie", type: "popular" },
+    { itemId: "item_14", itemName: "Viennoiseries", category: "boulangerie", type: "popular" },
+    { itemId: "item_15", itemName: "Tortillas", category: "boulangerie", type: "popular" },
+  
+    { itemId: "item_16", itemName: "Lait", category: "produits frais", type: "popular" },
+    { itemId: "item_17", itemName: "Beurre", category: "produits frais", type: "popular" },
+    { itemId: "item_18", itemName: "Crème fraîche", category: "produits frais", type: "popular" },
+    { itemId: "item_19", itemName: "Yaourts nature", category: "produits frais", type: "popular" },
+    { itemId: "item_20", itemName: "Lait végétal", category: "produits frais", type: "popular" },
+  
+    { itemId: "item_21", itemName: "Pâtes", category: "épicerie", type: "popular" },
+    { itemId: "item_22", itemName: "Riz", category: "épicerie", type: "popular" },
+    { itemId: "item_23", itemName: "Lentilles", category: "épicerie", type: "popular" },
+    { itemId: "item_24", itemName: "Pois chiches", category: "épicerie", type: "popular" },
+    { itemId: "item_25", itemName: "Haricots rouges", category: "épicerie", type: "popular" },
+    { itemId: "item_26", itemName: "Quinoa", category: "épicerie", type: "popular" },
+    { itemId: "item_27", itemName: "Boulgour", category: "épicerie", type: "popular" },
+  
+    { itemId: "item_28", itemName: "Huile d’olive", category: "condiments", type: "popular" },
+    { itemId: "item_29", itemName: "Vinaigre balsamique", category: "condiments", type: "popular" },
+    { itemId: "item_30", itemName: "Moutarde", category: "condiments", type: "popular" },
+    { itemId: "item_31", itemName: "Sel", category: "condiments", type: "popular" },
+    { itemId: "item_32", itemName: "Poivre", category: "condiments", type: "popular" },
+    { itemId: "item_33", itemName: "Herbes de Provence", category: "condiments", type: "popular" },
+  
+    { itemId: "item_34", itemName: "Sucre", category: "épicerie sucrée", type: "popular" },
+    { itemId: "item_35", itemName: "Farine", category: "épicerie sucrée", type: "popular" },
+    { itemId: "item_36", itemName: "Chocolat", category: "épicerie sucrée", type: "popular" },
+    { itemId: "item_37", itemName: "Confiture", category: "épicerie sucrée", type: "popular" },
+    { itemId: "item_38", itemName: "Sirop d’érable", category: "épicerie sucrée", type: "popular" },
+  
+    { itemId: "item_39", itemName: "Sauce tomate", category: "conserves", type: "popular" },
+    { itemId: "item_40", itemName: "Maïs en conserve", category: "conserves", type: "popular" },
+    { itemId: "item_41", itemName: "Thon en boîte", category: "conserves", type: "popular" },
+    { itemId: "item_42", itemName: "Haricots verts en conserve", category: "conserves", type: "popular" },
+    { itemId: "item_43", itemName: "Ratatouille", category: "conserves", type: "popular" },
+  
+    { itemId: "item_44", itemName: "Papier toilette", category: "ménage", type: "popular" },
+    { itemId: "item_45", itemName: "Sopalin", category: "ménage", type: "popular" },
+    { itemId: "item_46", itemName: "Liquide vaisselle", category: "ménage", type: "popular" },
+    { itemId: "item_47", itemName: "Lessive", category: "ménage", type: "popular" },
+    { itemId: "item_48", itemName: "Éponges", category: "ménage", type: "popular" },
+    { itemId: "item_49", itemName: "Sac poubelle", category: "ménage", type: "popular" },
+  
+    { itemId: "item_50", itemName: "Tofu", category: "végétal", type: "popular" },
+  ];
+  
