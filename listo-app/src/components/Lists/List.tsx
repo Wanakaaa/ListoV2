@@ -62,6 +62,11 @@ const List = ({ list }) => {
     toggleMenu(list.id);
   }
 
+  // Sera un composant progress bar + à ajouter à SelectedListPage
+  const totalItems = list.items.length
+  const checkedItems = list.items.filter(item => item.isChecked).length
+  const progressPercentage = totalItems === 0 ? 0 : (checkedItems / totalItems) * 100
+
   return (
     <div
       id={list.id}
@@ -72,12 +77,15 @@ const List = ({ list }) => {
         <h5 className="border-2 border-purple-600">{list.listName}</h5>
         <div className="border-2 border-purple-600 flex gap-x-4">
           <div className="border-2 border-pink-400">
-            0/{list.items?.length ?? 0}
+            {checkedItems}/{totalItems}
           </div>
           <button className="bg-blue-400" onClick={clickOnMenu}>
             ⋮ Menu
           </button>
         </div>
+      </div>
+      <div className="border-2 border-blue-400 h-2 w-full bg-gray-400">
+        <div className="bg-green-500 h-2" style={{ width: progressPercentage + '%'}} ></div>
       </div>
       <div className="border-2 border-orange-400">____________________</div>
       {openMenuId === list.id && (
