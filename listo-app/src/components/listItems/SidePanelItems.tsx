@@ -9,7 +9,7 @@ type SidePanelItems = {
 }
 
 const SidePanelItems = ({closePanel, list}: SidePanelItems) => {
-const { addItem } = useListsContext()
+const { addAnyItem } = useListsContext()
 
   const [ toggle, setToggle] = useState("popular")
   const [ itemName, setItemName ] = useState("")
@@ -20,8 +20,7 @@ const { addItem } = useListsContext()
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      addItem(list.id, itemName);
-      console.log("élément ajouté ?")
+      addAnyItem(list.id, itemName);
     };
 
 
@@ -53,7 +52,7 @@ const { addItem } = useListsContext()
         {toggle === "popular" && 
         <ul className="content-popular flex flex-col bg-white border-2 border-blue-300">
           {popItems.map((item) => (
-            <li key={item.itemId}>{item.itemName}</li>
+            <li key={item.itemId} onClick={()=> addAnyItem(list.id, item)} >{item.itemName}</li>
           ))}
         </ul>}
 

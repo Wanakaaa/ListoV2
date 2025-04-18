@@ -1,13 +1,13 @@
 import { createContext, useContext } from "react";
-import { ShoppingList } from "../data/modelShoppingList";
+import { Item, ShoppingList } from "../data/modelShoppingList";
 
 type ListsContextType = {
   shoppingLists: ShoppingList[];
   addList: (listName: string) => void;
   deleteList: (listId: string) => void;
   renameList: (listId: string, newListName: string) => void
-  addItem: (listId: string, newItem: string) => void
   toggleItemChecked: (listId: string, itemId: string) => void
+  addAnyItem: (listId: string, item: string | Item) => void
 }
 
 export const listsContext = createContext<ListsContextType | undefined>(undefined);
